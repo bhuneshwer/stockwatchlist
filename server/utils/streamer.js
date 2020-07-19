@@ -6,9 +6,8 @@
     function getPercentageChange() {
         let randomIdx = Math.floor(Math.random() * 2);
         return Math.random() * operators[randomIdx]
-
     }
-
+    
     function watchStock(socket) {
         Utils.db.Stocks.watchStock(Utils, (stockWatchStream) => {
             stockWatchStream.on("change", changeDetail => {
@@ -35,7 +34,7 @@
         watchStock(socket);
         setInterval(() => {
             refreshStock();
-        }, 10 * 60 * 1000)
+        }, 5 * 60 * 1000)
     }
 
     function refreshStock(sessionId) {

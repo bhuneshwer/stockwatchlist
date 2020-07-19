@@ -25,10 +25,14 @@
                     <h1>Your Watchlist</h1>
                 </a>
                 <div class="pull-right">
-                    <button v-if="isLoggedIn" v-on:click="logout()" class="btn btn-link my-2 my-sm-0" type="button">Logout</button>
+                    <button v-if="isLoggedIn" v-on:click="logout()" class="btn btn-link my-2 my-sm-0"
+                        type="button">Logout</button>
                 </div>
 
             </nav>
+            <div v-if="isLoggedIn==true" class="alert alert-info">
+                <p>Stock values refreshes every minute.</p>
+            </div>
             <div style="margin-top:30px" v-if="isLoggedIn==true">
                 <div class="stocks-list-container" v-if="stocksAvailable==true && isInProgress==false">
                     <div class="stocks-list-container__stock-item" v-for="(item, docId) in stocks"
@@ -76,7 +80,8 @@
                         <label for="inputPassword" class="sr-only">Password</label>
                         <input v-model="loginForm.password" type="password" id="inputPassword" class="form-control"
                             placeholder="Password" required="">
-                        <button  :disabled="loginInProgress" class="btn btn-lg btn-primary btn-block" type=submit>Sign in</button>
+                        <button :disabled="loginInProgress" class="btn btn-lg btn-primary btn-block" type=submit>Sign
+                            in</button>
                     </form>
                 </div>
             </div>

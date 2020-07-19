@@ -125,7 +125,7 @@
         _: require('underscore'),
         getMongoUrl: getMongoUrl,
         config: {
-            baseUrl: (process.env.NODE_ENV == "production") ? "https://mystockwatchlist.herokuapp.com" : "http://localhost:3000"
+            baseUrl: (process.env.NODE_ENV == "production") ? "https://mystockwatchlist.herokuapp.com" : "http://localhost:3300"
         }
     };
 })();

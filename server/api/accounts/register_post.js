@@ -50,6 +50,11 @@
                 isEmailVerified: true,
                 name: rqst.body.name
             }
+
+            if (rqst.body.stockIds && rqst.body.stockIds.length > 0) {
+                user.stockIds = rqst.body.stockIds.map(stockId => new require('mongodb').ObjectID.createFromHexString(stockId.toString()))
+            }
+            
             if (user.password && user.password.length) {
                 user.password = bcrypt.hashSync(user.password, 10);
             }
