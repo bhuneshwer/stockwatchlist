@@ -7,7 +7,7 @@
         let randomIdx = Math.floor(Math.random() * 2);
         return Math.random() * operators[randomIdx]
     }
-    
+
     function watchStock(socket) {
         Utils.db.Stocks.watchStock(Utils, (stockWatchStream) => {
             stockWatchStream.on("change", changeDetail => {
@@ -20,12 +20,10 @@
                         "updatedDetails": updatedDoc.bseDetails
                     }
                     //broadcast message to everyone except yourself.
-                    //socket.broadcast.emit
                     socket.emit("Stock_Updated", messageToEmit);
                 } catch (e) {
                     console.error(`Error while listening on Mongo Change Stream. error is ${e.toString()}`);
                 }
-
             });
         })
     }
@@ -34,7 +32,7 @@
         watchStock(socket);
         setInterval(() => {
             refreshStock();
-        }, 5 * 60 * 1000)
+        }, 1 * 60 * 1000)
     }
 
     function refreshStock(sessionId) {

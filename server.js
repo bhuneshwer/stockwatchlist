@@ -3,7 +3,8 @@ const http = require('http').Server(app);
 const cors = require('cors');
 
 const io = require("socket.io");
-
+var cookieParser = require('cookie-parser')
+app.use(cookieParser())
 
 //Socket.IO works by adding event listeners to an instance of http.Server
 const socket = io(http);
@@ -23,19 +24,32 @@ app.use(require('body-parser').urlencoded({
     extended: true
 }));
 
-require("./server/utils/sessions").initSessionStore(app).then(() => {
-    require("./server/utils/passport").configure(app,require("./server/utils/utils").Utils);
+
+
+
+require("./server/utils/sessions").initSessionStore(app).then((response) => {
+    initSocket(response)
+    require("./server/utils/passport").configure(app, require("./server/utils/utils").Utils);
     require('./server/routes').establishRoutes(app);
     startServer();
 });
 
-//To listen to messages on socket
-socket.on("connection", (socket) => {
-    console.log("user connected");
-    socket.on("disconnect", () => {
-        console.log("Disconnected")
-    })
-});
+//const sharedsession = require('express-socket.io-session');
+
+function initSocket(response) {
+    // socket.use(sharedsession(response.sessionMiddleware, {
+    //     autoSave: true,
+    // }));
+    //To listen to messages on socket
+    socket.on("connection", (socket) => {
+        console.log("user connected", socket.id);
+        socket.on("disconnect", () => {
+            console.log("Disconnected")
+        })
+    });
+}
+
+
 
 
 function startServer() {

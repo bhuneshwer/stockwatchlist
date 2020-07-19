@@ -3,7 +3,7 @@
     var session = require('express-session');
     const Utils = require('./utils').Utils;
 
-    function initSessionStore(app) {
+    function initSessionStore(app, socket) {
         return new Promise((resolve, reject) => {
             getSessionStore().then((sessionStore) => {
                 if (sessionStore) {
@@ -20,8 +20,7 @@
                         maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
                         resave: true
                     }
-
-                    app.use(session({
+                    var sessionMiddleware = session({
                         proxy: true,
                         store: sessionStore,
                         secret: 'CdfKo*9OsUxc$-$123',
@@ -29,15 +28,20 @@
                         name: cookieName,
                         rolling: true,
                         saveUninitialized: true
-                    }));
+                    })
 
-                    resolve()
+                    app.use(sessionMiddleware);
+
+                    resolve({
+                        "sessionMiddleware": sessionMiddleware
+                    })
                 }
             }, (err) => {
                 reject(err);
             })
         })
     }
+
     function getSessionStore() {
         return new Promise((resolve, reject) => {
             var DbUrl = Utils.getMongoUrl();
