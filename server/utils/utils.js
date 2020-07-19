@@ -4,9 +4,8 @@
 
     var MongoConnection = null;
 
-
     function getMongoUrl() {
-        return process.env.STOCk_DB_URL || "mongodb+srv://testuser:9XfaJ5mZhGTrKHRI@cluster0-cvdjl.mongodb.net/stocks-watchlist?retryWrites=true&w=majority&readPreference=secondary";
+        return `${process.env.STOCK_DB_URL}?retryWrites=true&w=majority&readPreference=secondary`
     }
 
     function getDbClient() {
@@ -124,6 +123,9 @@
         isUserLoggedIn: isUserLoggedIn,
         resolveResponse: resolveResponse,
         _: require('underscore'),
-        getMongoUrl: getMongoUrl
+        getMongoUrl: getMongoUrl,
+        config: {
+            baseUrl: (process.env.NODE_ENV == "production") ? "https://mystockwatchlist.herokuapp.com" : "http://localhost:3000"
+        }
     };
 })();

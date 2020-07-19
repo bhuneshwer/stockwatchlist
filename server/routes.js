@@ -15,13 +15,19 @@
                 'x-sent': true
             }
         }
-
+        
         function establishRoutes(app) {
-
-            app.use(require("express").static('client'))
-
             let utils = require('./utils/utils').Utils;
-            app.use('/api/:moduleName/:apiName',require('./utils/permissions').Pemissions.isAuthenticated(utils), (req, res, next) => {
+            app.use(require("express").static('client'));
+            app.get('/url-config.js', function (req, res) {
+                var contents = 'const SERVER_BASE_URL="' + utils.config.baseUrl + '";';
+                // contents += 'var requestPublicKey = "' + require('./helpers').helpers.Encryptor.RequestPublicKey + '";';
+                res.set('Content-Type', 'text/javascript; charset=UTF-8');
+                res.status(200).send(new Buffer(contents));
+            });
+
+
+            app.use('/api/:moduleName/:apiName', require('./utils/permissions').Pemissions.isAuthenticated(utils), (req, res, next) => {
                 next();
             }, function (req, res, next) {
                 console.log('APi Called with Module: ' + req.params.moduleName + '/' + req.params.apiName);
@@ -92,7 +98,7 @@
             }
         }
 
-        function handleRequestErr(moduleName, apiName, apimethod, res, err,q) {
+        function handleRequestErr(moduleName, apiName, apimethod, res, err, q) {
             console.warn('Module name: ' + moduleName + ', Api Name:  ' + apiName + ', Method Name: ' + apimethod.toLowerCase() + ', Unhandled Error', err.code);
             try {
                 q.resolve({

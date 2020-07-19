@@ -1,6 +1,4 @@
 (function () {
-    let serverBaseUrl = "http://localhost:3300";
-
     function initApp() {
         new Vue({
             el: '#myStockApp',
@@ -21,7 +19,7 @@
             },
             mounted() {
 
-                axios.get(`${serverBaseUrl}/api/accounts/me`).then(response => {
+                axios.get(`${SERVER_BASE_URL}/api/accounts/me`).then(response => {
                     this.loggedInInfoFetched = true;
                     document.getElementById("myStockPageContainer").style.display = "block";
                     document.getElementById("pageLoader").style.display = "none";
@@ -63,7 +61,7 @@
                         "password": this.loginForm.password
                     }
                     this.loginInProgress = true;
-                    axios.post(`${serverBaseUrl}/api/accounts/login`, requestBody).then(response => {
+                    axios.post(`${SERVER_BASE_URL}/api/accounts/login`, requestBody).then(response => {
                         this.loginInProgress = false;
                         if (response && response.data && response.data.data) {
                             if (response.data.data.code == 1) {
@@ -79,14 +77,14 @@
                     })
                 },
                 logout() {
-                    axios.get(`${serverBaseUrl}/api/accounts/logout`).then(response => {
+                    axios.get(`${SERVER_BASE_URL}/api/accounts/logout`).then(response => {
                         console.warn(response.data.data)
                         this.isLoggedIn = false;
                     })
                 },
                 getWatchList() {
                     axios
-                        .get(`${serverBaseUrl}/api/stocks/list`)
+                        .get(`${SERVER_BASE_URL}/api/stocks/list`)
                         .then(response => {
                             this.isInProgress = false;
                             if (response && response.data && response.data.data.stocks && response.data.data.stocks.length) {
