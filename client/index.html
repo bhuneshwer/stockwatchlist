@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<head>
+    <title>Stock Watchlist</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="myStockApp">
+
+        <div id="pageLoader" class="stock-watchlist-loader-container">
+            <div class="stock-watchlist-loader-container__loader">
+
+            </div>
+        </div>
+
+        <div id="myStockPageContainer" style="display:none;">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#" v-if="isLoggedIn">
+                    <h1>Your Watchlist</h1>
+                </a>
+                <div class="pull-right">
+                    <button v-if="isLoggedIn" v-on:click="logout()" class="btn btn-link my-2 my-sm-0" type="button">Logout</button>
+                </div>
+
+            </nav>
+            <div style="margin-top:30px" v-if="isLoggedIn==true">
+                <div class="stocks-list-container" v-if="stocksAvailable==true && isInProgress==false">
+                    <div class="stocks-list-container__stock-item" v-for="(item, docId) in stocks"
+                        v-bind:key="item._id">
+                        <div>
+                            {{ item.name }}
+                        </div>
+                        <div>
+                            {{item.bseDetails.currentValue|toFixed}}
+                            <span v-if="item.bseDetails.lastValue<item.bseDetails.currentValue"
+                                class="pos-change">&uarr;</span>
+                            <span v-if="item.bseDetails.lastValue>item.bseDetails.currentValue"
+                                class="neg-change">&darr;</span>
+                            <span v-if="item.bseDetails.lastValue<item.bseDetails.currentValue" class="pos-change"
+                                style="font-size:0.8em">{{((item.bseDetails.currentValue-item.bseDetails.lastValue)/item.bseDetails.currentValue*100.0)|toFixed}}%</span>
+                            <span v-if="item.bseDetails.lastValue>item.bseDetails.currentValue" class="neg-change"
+                                style="font-size:0.8em">{{((item.bseDetails.currentValue-item.bseDetails.lastValue)/item.bseDetails.currentValue*100.0)|toFixed}}%</span>
+                        </div>
+                        <div>
+                            {{item.bseDetails.lastValue|toFixed}}
+                        </div>
+                        <div>
+                            {{item.bseDetails.valueUpdatedAt | formatDate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="stocksAvailable==false && isInProgress==false" class="stock-watchlist-no-results">
+                    No results
+                </div>
+                <div class="stock-watchlist-loader-container">
+                    <div v-if="isInProgress==true" class="stock-watchlist-loader-container__loader">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="fotm-signin" v-if="!isLoggedIn && loggedInInfoFetched==true">
+                <div class="text-center">
+                    <form class="form-signin" v-on:submit.prevent="onLogin()" id="loginForm">
+                        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                        <label for="inputEmail" class="sr-only">Email address</label>
+                        <input v-model="loginForm.email" type="email" id="inputEmail" class="form-control"
+                            placeholder="Email address" required="" autofocus="">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input v-model="loginForm.password" type="password" id="inputPassword" class="form-control"
+                            placeholder="Password" required="">
+                        <button  :disabled="loginInProgress" class="btn btn-lg btn-primary btn-block" type=submit>Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+    integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA=="
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"
+    integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A=="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="/js/app.js"></script>
+
+</html>

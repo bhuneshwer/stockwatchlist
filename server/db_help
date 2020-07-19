@@ -1,0 +1,80 @@
+// Newly added document
+{ 
+    "name" : "Stock1", 
+    "bseDetails" : {
+        "CurrentValue" : 1450.1, 
+        "valueUpdatedAt" : ISODate("2020-07-18T16:34:43.191+0000"), 
+        "lastValue" : 1449.2
+    }, 
+    "recommendation" : {
+        "buy" : 20.0, 
+        "sell" : 70.0, 
+        "hold" : 10.0
+    }, 
+    "createdDate" : ISODate("2020-07-18T16:34:43.191+0000"), 
+    "_id" : ObjectId("5f1324a3cd621d0c58154cbd")
+}
+// Newly added document
+{ 
+    "name" : "Stock2", 
+    "bseDetails" : {
+        "CurrentValue" : 1350.1, 
+        "valueUpdatedAt" : ISODate("2020-07-18T16:34:58.647+0000"), 
+        "lastValue" : 1359.2
+    }, 
+    "recommendation" : {
+        "buy" : 20.0, 
+        "sell" : 70.0, 
+        "hold" : 10.0
+    }, 
+    "createdDate" : ISODate("2020-07-18T16:34:58.647+0000"), 
+    "_id" : ObjectId("5f1324b2cd621d0c58154cbe")
+}
+// Newly added document
+{ 
+    "name" : "Stock3", 
+    "bseDetails" : {
+        "CurrentValue" : 750.1, 
+        "valueUpdatedAt" : ISODate("2020-07-18T16:35:07.047+0000"), 
+        "lastValue" : 740.2
+    }, 
+    "recommendation" : {
+        "buy" : 20.0, 
+        "sell" : 70.0, 
+        "hold" : 10.0
+    }, 
+    "createdDate" : ISODate("2020-07-18T16:35:07.048+0000"), 
+    "_id" : ObjectId("5f1324bbcd621d0c58154cbf")
+}
+// Newly added document
+{ 
+    "name" : "Stock4", 
+    "bseDetails" : {
+        "CurrentValue" : 10.1, 
+        "valueUpdatedAt" : ISODate("2020-07-18T16:35:14.220+0000"), 
+        "lastValue" : 13.2
+    }, 
+    "recommendation" : {
+        "buy" : 20.0, 
+        "sell" : 70.0, 
+        "hold" : 10.0
+    }, 
+    "createdDate" : ISODate("2020-07-18T16:35:14.220+0000"), 
+    "_id" : ObjectId("5f1324c2cd621d0c58154cc0")
+}
+// Newly added document
+{ 
+    "name" : "Stock5", 
+    "bseDetails" : {
+        "CurrentValue" : 50.1, 
+        "valueUpdatedAt" : ISODate("2020-07-18T16:35:30.221+0000"), 
+        "lastValue" : 49.2
+    }, 
+    "recommendation" : {
+        "buy" : 20.0, 
+        "sell" : 70.0, 
+        "hold" : 10.0
+    }, 
+    "createdDate" : ISODate("2020-07-18T16:35:30.221+0000"), 
+    "_id" : ObjectId("5f1324d2cd621d0c58154cc1")
+}

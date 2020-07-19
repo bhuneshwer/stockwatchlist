@@ -1,0 +1,107 @@
+.stocks-list-container {
+    width: 90%;
+    margin: 4%;
+}
+
+.stocks-list-container__stock-item {
+    font-size: 1.2em;
+    background: #dddddd00;
+    border-bottom: 1px solid #dddddd61;
+    display: grid;
+    grid-template-columns: 30% 20% 15% 35%;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .stocks-list-container__stock-item {
+        display: inherit;
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+.stock-watchlist-no-results {
+    font-size: 1em;
+}
+
+.stock-watchlist-loader-container {
+    width: 50px;
+    margin: 0 auto;
+    padding-top: 10%;
+}
+
+.stock-watchlist-loader-container__loader {
+    border: 4px solid #ccc;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 1.5s linear infinite;
+    /* Safari */
+    animation: spin 1.5s linear infinite;
+}
+
+.pos-change {
+    font-weight: bold;
+    color: green;
+}
+
+.neg-change {
+    font-weight: bold;
+    color: red;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
