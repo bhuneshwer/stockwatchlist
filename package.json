@@ -23,7 +23,7 @@
     "q": "1.5.1",
     "session.socket.io": "0.2.1",
     "socket.io": "2.3.0",
-    "underscore": "1.10.2",
+    "underscore": "1.12.1",
     "util": "0.12.3"
   }
 }
